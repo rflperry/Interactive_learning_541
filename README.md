@@ -1,2 +1,3 @@
-# Interactive_learning_541
-Assignments and work for CSE 541
+# Interactive Learning
+
+Assignments and work for CSE 541, Winter 2026.
