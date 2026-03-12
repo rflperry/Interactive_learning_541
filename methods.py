@@ -45,3 +45,21 @@ def etc(T, outcomes, m=1):
         pulls[arm] += 1
 
     return returns
+
+
+def exp3(T, outcomes, eta=1, gamma=0):
+    n = len(outcomes)
+    returns = np.zeros(n)
+    p = np.ones(n) / n
+    weights = np.ones(n)
+
+    for t in range(T):
+        qt = (1 - gamma) * p + gamma / n
+        noise = np.random.gumbel(0, 1, size=n)
+        # gumbel trick, plus mix in uniform noise
+        arm = np.argmax(np.log(qt) + noise)
+        returns[arm] += outcomes[arm, t]
+        weights[arm] *= np.exp(-eta * outcomes[arm, t] / qt[arm])
+        p = weights / np.sum(weights)
+
+    return returns
